@@ -8,6 +8,9 @@
 }
 
 
+body {
+  background-color: #00bcd44d;
+}
 
 
 .container {
@@ -24,10 +27,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  /* padding: 30px 0; */
+  padding: 30px 0;
   transition: 0.3s;
   z-index: 2222;
-  background-color: #00bcd44d;
 }
 
 
@@ -91,7 +93,6 @@ header .nav .parent li:hover a::before {
 header .mobile {
   display: none;
   border: none;
-  background-color: #b2ebf2;
 }
 
 
@@ -117,8 +118,9 @@ header .mobile {
     transition: 0.3s;
   }
 
-  header .nav.active {
-    /* height: auto; */
+  header {
+    background-color: #fff;
+    padding: 15px 0;
   }
 
   header .nav .parent {
