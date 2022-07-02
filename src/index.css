@@ -97,7 +97,11 @@ header .mobile {
 
 
 
-@media (max-width: 575.98px) {}
+@media (min-width: 992px) {
+  header .nav {
+    height: auto !important;
+  }
+}
 
 @media (max-width: 767.98px) {}
 
@@ -114,7 +118,7 @@ header .mobile {
   }
 
   header .nav.active {
-    height: 330px;
+    /* height: auto; */
   }
 
   header .nav .parent {
@@ -122,7 +126,7 @@ header .mobile {
     padding: 15px 0;
     width: 100%;
     background-color: white;
-    height: auto;
+    /* height: auto; */
   }
 
 
