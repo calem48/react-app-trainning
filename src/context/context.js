@@ -61,7 +61,7 @@ const AppContext = ({ children }) => {
 
 
     useEffect(() => {
-        serarchQuery("john-smilga")
+        serarchQuery("calem48")
     }, []);
 
     return (
