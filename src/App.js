@@ -1,16 +1,20 @@
 import React from 'react';
-import Search from './search';
-import Button from './buttons';
-import Stories from './stories';
-
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashborad from './pages/dashborad'
+import Login from './pages/login'
+import Error from './pages/error'
 function App() {
 
   return (
     <>
-      <Search />
-      <Button />
-      <Stories />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Dashborad />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </BrowserRouter>
+
     </>
   );
 };
