@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #2196f324;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #ffffffc9;
+  padding: 35px;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0px 0px 6px -1px #8f8a8a;
+  z-index: 2;
+}
+
+.container .my-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container .my-image h2 {
+  margin-top: 20px;
+}
+
+.container .my-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 100%;
+}
+
+.container .my-image::after {
+  content: "";
+  width: 150px;
+  height: 150px;
+  background-color: #49a6e9;
+  position: absolute;
+  border-radius: 100%;
+  z-index: -1;
+  top: -3px;
+  right: -4px;
+}
+
+.container .my-image::before {
+  content: "\f10e";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #49a6e9;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(0px, 25%);
+}
+
+.container p:not(:first-of-type) {
+  margin: 0 auto;
+  margin-top: 15px;
+  line-height: 20px;
+  font-size: 18px;
+}
+
+.container .slide {
+  margin-top: 10px;
+}
+
+.container button {
+  padding: 3px 12px;
+  border: none;
+  background: transparent;
+  font-size: 23px;
+  color: #49a6e9;
+}
