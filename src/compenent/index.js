@@ -1,8 +1,10 @@
-import Flower from './flower';
-import Info from './info';
-import Navbar from './navbar';
-import Search from './search';
-import User from './user';
-import Repos from './repos';
+import Header from "./Header";
+import Sidebar from "./asideBar";
+import Slider from "./Slider";
+import FeaturedProduct from "./FeaturedProduct";
+import Services from "./Services";
+import Contact from "./Contact";
+import Footer from "./Footer";
 
-export { Flower, Info, Navbar, Search, User, Repos }
+
+export { Header, Sidebar, Slider, FeaturedProduct, Services, Contact, Footer }
