@@ -5,20 +5,20 @@ import styled from 'styled-components';
 
 const Product = ({ id, image, name, price }) => {
 
-    return (
-        <WrapperArticle >
-            <div className="container">
-                <img src={image} alt={name} />
-                <Link className="link" to={`/products/${id}`}>
-                    <FaSearch />
-                </Link>
-            </div>
-            <footer>
-                <h5>{name}</h5>
-                <p>${(price / 1000).toFixed(2)}</p>
-            </footer>
-        </WrapperArticle>
-    );
+  return (
+    <WrapperArticle >
+      <div className="container">
+        <img src={image} alt={name} />
+        <Link className="link" to={`/products/${id}`}>
+          <FaSearch />
+        </Link>
+      </div>
+      <footer>
+        <h5>{name}</h5>
+        <p>${(price / 1000).toFixed(2)}</p>
+      </footer>
+    </WrapperArticle>
+  );
 }
 
 const WrapperArticle = styled.article`

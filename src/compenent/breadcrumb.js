@@ -2,18 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Breadcrumb = ({ title }) => {
-    return (
-        <Wrapper>
-            <div className="section-center">
-                <h3>
-                    <Link to="/">Home</Link > /
-                    {title}
-                </h3>
-            </div>
+const Breadcrumb = ({ title, product }) => {
+  return (
+    <Wrapper>
+      <div className="section-center">
+        <h3>
+          <Link to="/">Home</Link >
+          {product && <Link to="/products"> /product</Link >}
+          /{title}
+        </h3>
+      </div>
 
-        </Wrapper>
-    );
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`

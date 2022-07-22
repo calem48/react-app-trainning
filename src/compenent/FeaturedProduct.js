@@ -5,26 +5,38 @@ import Product from './Product';
 
 
 const FeaturedProduct = () => {
-  let { isLoading, products } = useGlobalContext()
-  console.log(products);
+  let { isLoading, Featrued_Products, Error_Products } = useGlobalContext()
 
-  if (products) {
+  if (isLoading) {
     return (
-      <Wrapper className='section'>
-        <div className="title">
-          <h2>featured products</h2>
-          <div className="underline"></div>
-        </div>
-        <div className='section-center featured'>
-          {
-            products.slice(0, 3).map(item => {
-              return <Product key={item.id} {...item} />
-            })
-          }
-        </div>
-      </Wrapper>
-    );
+      <div className="section section-center">
+        <h2>loading ...</h2>
+      </div>
+    )
   }
+
+  if (Error_Products) {
+    return <div className="section section-center">
+      <h2>error for fetch data ...</h2>
+    </div>
+  }
+
+  return (
+    <Wrapper className='section'>
+      <div className="title">
+        <h2>featured products</h2>
+        <div className="underline"></div>
+      </div>
+      <div className='section-center featured'>
+        {
+          Featrued_Products.slice(0, 3).map(item => {
+            return <Product key={item.id} {...item} />
+          })
+        }
+      </div>
+    </Wrapper>
+  );
+
 
 }
 
