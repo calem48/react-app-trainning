@@ -43,7 +43,7 @@ const SinglePageProduct = () => {
       </div>
     )
   }
-
+  console.log(single_product)
   let { name, id: id_prod, price, description, stock, stars, reviews, images, company } = single_product
 
   return (
@@ -55,14 +55,14 @@ const SinglePageProduct = () => {
           <ProductImage images={images} />
           <section className='content'>
             <h2>{name}</h2>
-            <Stars />
+            <Stars stars={stars} reviews={reviews} />
             <h5 className="price">${price / 100}</h5>
             <p className="desc">{description}</p>
             <p className="info"><span>Available : </span>{stock > 0 ? "in stock" : "Out of stock"}</p>
             <p className="info"><span>SKU :</span>{id_prod}</p>
             <p className="info"><span>Brand :</span>{company}</p>
             <hr></hr>
-            {stock > 0 && <AddToCart />}
+            {stock > 0 && <AddToCart product={single_product} />}
           </section>
         </div>
       </div>
