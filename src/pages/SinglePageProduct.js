@@ -43,7 +43,7 @@ const SinglePageProduct = () => {
       </div>
     )
   }
-  console.log(single_product)
+
   let { name, id: id_prod, price, description, stock, stars, reviews, images, company } = single_product
 
   return (

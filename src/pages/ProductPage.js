@@ -1,33 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import Breadcrumb from '../compenent/breadcrumb';
-import Product from '../compenent/Product';
-import { useGlobalContext } from '../context/ContextProduct';
-
+import FilterPage from '../compenent/FilterPage';
+import ProductLIst from '../compenent/ProductLIst';
+import Sort from '../compenent/Sort';
 
 const ProductPage = () => {
-    let { isLoading, products } = useGlobalContext()
-    console.log(products);
-    if (products) {
-        return (
-            <main>
-                <Breadcrumb title={"products"} />
-                <Wrapper className='page'>
-                    <div className='section-center products'>
-                        <WrapperGridVeiw>
-                            <div className='products-container'>
-                                {
-                                    products.map((product) => {
-                                        return <Product key={product.id} {...product} />
-                                    })
-                                }
-                            </div>
-                        </WrapperGridVeiw>
-                    </div>
-                </Wrapper>
-            </main>
-        );
-    }
+
+
+  return (
+    <main>
+      <Breadcrumb title={"products"} />
+      <Wrapper className='page'>
+        <div className='section-center products'>
+          <FilterPage />
+          <div>
+            <Sort />
+            <ProductLIst />
+          </div>
+        </div>
+      </Wrapper>
+    </main>
+  );
+
 
 }
 
@@ -44,26 +39,6 @@ const Wrapper = styled.div`
   }
 `
 
-const WrapperGridVeiw = styled.section`
-  img {
-    height: 175px;
-  }
 
-  .products-container {
-    display: grid;
-    gap: 2rem 1.5rem;
-  }
-
-  @media (min-width: 992px) {
-    .products-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 1170px) {
-    .products-container {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-`
 
 export default ProductPage;

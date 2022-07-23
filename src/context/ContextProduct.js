@@ -17,10 +17,10 @@ let initState = {
 
 }
 
-let AppContext = React.createContext()
+let AppContextProduct = React.createContext()
 
 
-const AppProvider = ({ children }) => {
+const AppProviderProduct = ({ children }) => {
     let [state, dispatch] = useReducer(reduce, initState)
 
     // fetch data
@@ -64,15 +64,15 @@ const AppProvider = ({ children }) => {
     }, []);
 
     return (
-        <AppContext.Provider value={{ ...state, openSideBar, closeSidebar, fetchSinglProduct }}>
+        <AppContextProduct.Provider value={{ ...state, openSideBar, closeSidebar, fetchSinglProduct }}>
             {children}
-        </AppContext.Provider>
+        </AppContextProduct.Provider>
     );
 
 }
 
 export let useGlobalContext = () => {
-    return useContext(AppContext)
+    return useContext(AppContextProduct)
 }
 
-export { AppProvider, AppContext };
+export { AppProviderProduct, AppContextProduct };

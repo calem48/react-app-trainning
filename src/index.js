@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { AppProvider } from './context/ContextProduct';
+import { AppProviderProduct } from './context/ContextProduct';
+import { AppProviderFilter } from './context/contextFilter';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <AppProvider>
-        <App />
-    </AppProvider>
+    <AppProviderProduct>
+        <AppProviderFilter>
+            <App />
+        </AppProviderFilter>
+    </AppProviderProduct>
 );
 
 
