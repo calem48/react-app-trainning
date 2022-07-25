@@ -8,8 +8,9 @@ import { useGlobalContext } from './ContextProduct';
 let initState = {
     all_products: [],
     filtered_products: [],
-    gridView: false,
-    listView: false
+    gridView: true,
+    listView: false,
+    sort: "price-lowest"
 }
 
 let AppContextFilter = React.createContext()
@@ -20,21 +21,29 @@ const AppProviderFilter = ({ children }) => {
     let { products } = useGlobalContext()
 
 
-    let gridView = () => {
+    let myGridView = () => {
         dispatch({ type: "SET_GRID_VIWE" })
     }
 
-    let listView = () => {
+    let myListView = () => {
         dispatch({ type: "SET_LIST_VIWE" })
     }
 
+    let sortUpdate = (e) => {
+        let value = e.target.value
+        dispatch({ type: "SORT_UPDATE", value })
+    }
 
     useEffect(() => {
         dispatch({ type: "GET_ALL_PRODUCTS", payload: products })
     }, [products]);
 
+    useEffect(() => {
+        dispatch({ type: "SORT_PRODUCTS" })
+    }, [products, state.sort]);
+
     return (
-        <AppContextFilter.Provider value={{ ...state }}>
+        <AppContextFilter.Provider value={{ ...state, myListView, myGridView, sortUpdate }}>
             {children}
         </AppContextFilter.Provider>
     );
