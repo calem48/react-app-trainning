@@ -3,7 +3,14 @@
 export let reduce = (state, action) => {
 
     if (action.type === "GET_ALL_PRODUCTS") {
-        return { ...state, all_products: [...action.payload], filtered_products: [...action.payload] }
+        let maxParice = action.payload.map(p => p.price)
+        maxParice = Math.max(...maxParice)
+        return {
+            ...state,
+            all_products: [...action.payload],
+            filtered_products: [...action.payload],
+            filters: { ...state.filters, max_price: maxParice, price: maxParice }
+        }
     }
 
     if (action.type === "SET_GRID_VIWE") {
@@ -45,5 +52,50 @@ export let reduce = (state, action) => {
 
     }
 
+    if (action.type === "FILTER_UPDATE") {
+        let { value, name } = action.data
+        return { ...state, filters: { ...state.filters, [name]: value } }
+    }
+
+    if (action.type === "FILTER_PRODUCTS") {
+        let tempProdcuts = [...state.all_products]
+        let { category, company, colors, shipping, text, price } = state.filters
+
+        if (text) {
+            tempProdcuts = tempProdcuts.filter(item => {
+                return item.name.toLowerCase().includes(text.toLowerCase())
+            })
+        }
+
+        if (category !== "all") {
+            tempProdcuts = tempProdcuts.filter(item => {
+                return item.category === category
+            })
+        }
+
+        if (company !== "all") {
+            tempProdcuts = tempProdcuts.filter(item => {
+                return item.company === company
+            })
+        }
+
+
+
+        tempProdcuts = tempProdcuts.filter(item => {
+            return item.price <= price
+        })
+
+
+
+        if (colors !== "all") {
+
+            tempProdcuts = tempProdcuts.filter(item => {
+                return item.colors.find(c => c === colors)
+            })
+
+        }
+
+        return { ...state, filtered_products: tempProdcuts }
+    }
     throw new Error(`doesn't find this  ${action.type} action `)
 }

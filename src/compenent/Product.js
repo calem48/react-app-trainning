@@ -15,7 +15,7 @@ const Product = ({ id, image, name, price }) => {
       </div>
       <footer>
         <h5>{name}</h5>
-        <p>${(price / 1000).toFixed(2)}</p>
+        <p>${(price / 100).toFixed(2)}</p>
       </footer>
     </WrapperArticle>
   );
