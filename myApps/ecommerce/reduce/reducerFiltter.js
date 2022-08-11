@@ -95,6 +95,14 @@ export let reduce = (state, action) => {
 
         }
 
+
+        if (shipping) {
+
+            tempProdcuts = tempProdcuts.filter(item => {
+                return item.shipping === true
+            })
+        }
+
         return { ...state, filtered_products: tempProdcuts }
     }
     throw new Error(`doesn't find this  ${action.type} action `)

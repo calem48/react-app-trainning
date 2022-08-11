@@ -58,6 +58,10 @@ const AppProviderFilter = ({ children }) => {
             value = e.target.dataset.color
         }
 
+        if (name === "shipping") {
+            value = e.target.checked
+        }
+
 
         dispatch({ type: "FILTER_UPDATE", data: { name, value } })
     }
