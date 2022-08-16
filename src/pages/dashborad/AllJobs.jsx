@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Dashborad = () => {
+const AllJobs = () => {
     return (
         <div>
-            dash
+            all
         </div>
     );
 }
 
-export default Dashborad;
+export default AllJobs;

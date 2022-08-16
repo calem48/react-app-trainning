@@ -1,10 +1,11 @@
-import React from 'react';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { Logo, FormRow } from '../component';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, registerUser } from '../features/user/userSlice';
+import { useNavigate } from "react-router-dom"
 
 
 const initialState = {
@@ -18,6 +19,7 @@ const Register = () => {
     const [value, setValues] = useState(initialState);
     let { user, isLoading } = useSelector(state => state.user)
     let dispatch = useDispatch()
+    let navigate = useNavigate()
 
     let handleChange = (e) => {
         let name = e.target.name
@@ -45,11 +47,17 @@ const Register = () => {
     }
 
 
-
-
     let toggolMember = () => {
         setValues({ ...value, isMember: !value.isMember })
     }
+
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                navigate("/")
+            }, 2000)
+        }
+    }, [user]);
 
     return (
         <Wrapper className='full-page'>
