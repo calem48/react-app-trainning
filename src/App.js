@@ -1,5 +1,5 @@
 import React from 'react';
-import { Error, Register, Landing } from './pages';
+import { Error, Register, Landing, PrivateRouter } from './pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,10 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route path="/" element={<SharedLayoat />}>
+          <Route path="/"
+            element={<PrivateRouter>
+              <SharedLayoat />
+            </PrivateRouter>}>
             <Route index element={<Stats />} />
             <Route path="all-jobs" element={<AllJobs />} />
             <Route path="add-jobs" element={<AddJobs />} />

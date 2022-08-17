@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import customFetch from '../../utils/axios'
-import { addUserLocalStorage, getUserLocalStorage } from '../../utils/localStorage'
+import { addUserLocalStorage, getUserLocalStorage, removeUserLocalStorage } from '../../utils/localStorage'
 
 let initialState = {
     isLoading: false,
+    isOpenSideBar: false,
     user: getUserLocalStorage()
 }
 
@@ -35,7 +36,17 @@ export const loginUser = createAsyncThunk("user/loginUser", async (user, thunkAP
 let userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        openSideBar: (state) => {
+            state.isOpenSideBar = !state.isOpenSideBar
+        },
+        logOutUser: (state) => {
+            state.isOpenSideBar = false
+            state.user = null
+            removeUserLocalStorage()
+        }
+
+    },
     extraReducers: {
         /* register logic */
         [registerUser.pending]: (state) => {
@@ -68,5 +79,5 @@ let userSlice = createSlice({
     }
 })
 
-// export let { } = userSlice.actions
+export let { openSideBar, logOutUser } = userSlice.actions
 export default userSlice.reducer
