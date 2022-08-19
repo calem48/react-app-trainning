@@ -1,8 +1,8 @@
 import Logo from "./Logo";
 import FormRow from "./FormRow";
 import NavBar from "./NavBar";
-import NavLink from "./NavLink";
+import NavLinks from "./NavLinks";
 import SideBar from "./SideBar";
 import SidebarSmall from "./SidebarSmall";
 
-export { Logo, FormRow, NavBar, NavLink, SideBar, SidebarSmall } 
+export { Logo, FormRow, NavBar, NavLinks, SideBar, SidebarSmall } 

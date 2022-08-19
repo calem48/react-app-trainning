@@ -9,6 +9,8 @@ let initialState = {
     user: getUserLocalStorage()
 }
 
+console.log(getUserLocalStorage());
+
 export const registerUser = createAsyncThunk("user/registerUser", async (user, thunkAPI) => {
 
     try {
@@ -41,7 +43,7 @@ let userSlice = createSlice({
             state.isOpenSideBar = !state.isOpenSideBar
         },
         logOutUser: (state) => {
-            state.isOpenSideBar = false
+            // state.isOpenSideBar = false
             state.user = null
             removeUserLocalStorage()
         }
@@ -67,7 +69,7 @@ let userSlice = createSlice({
             state.isLoading = true
         },
         [loginUser.fulfilled]: (state, { payload }) => {
-            addUserLocalStorage(payload)
+            addUserLocalStorage(payload.user)
             state.isLoading = false
             state.user = payload.user
             toast.success("login successfully")

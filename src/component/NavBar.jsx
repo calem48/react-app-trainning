@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Navbar = () => {
     let { user } = useSelector(state => state.user)
-
+    console.log(user);
     const [show, setShow] = useState(false);
     let dispatch = useDispatch()
     return (

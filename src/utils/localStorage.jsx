@@ -10,6 +10,6 @@ export const removeUserLocalStorage = () => {
 }
 
 
-export const getUserLocalStorage = (user) => {
-    return JSON.parse(localStorage.getItem(user)) || null
+export const getUserLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("user")) || null
 }

@@ -19,7 +19,7 @@ function App() {
             </PrivateRouter>}>
             <Route index element={<Stats />} />
             <Route path="all-jobs" element={<AllJobs />} />
-            <Route path="add-jobs" element={<AddJobs />} />
+            <Route path="add-job" element={<AddJobs />} />
             <Route path="profile" element={<Profile />} />
           </Route>
 
