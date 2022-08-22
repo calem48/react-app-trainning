@@ -26,7 +26,7 @@ const Navbar = () => {
                         <FaUserCircle />{user?.name}<FaCaretDown />
                     </button>
                     <div className={show ? "dropdown show-dropdown" : "dropdown"}>
-                        <button onClick={() => dispatch(logOutUser())} type="button" className="dropdown-btn">logout</button>
+                        <button onClick={() => dispatch(logOutUser("logout successfully"))} type="button" className="dropdown-btn">logout</button>
                     </div>
                 </div>
             </div>

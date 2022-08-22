@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import customFetch from '../../utils/axios'
+
 import { addUserLocalStorage, getUserLocalStorage, removeUserLocalStorage } from '../../utils/localStorage'
+import { loginThunk, registerThunk, updateUserThunk } from './userThunk'
 
 let initialState = {
     isLoading: false,
@@ -11,45 +12,18 @@ let initialState = {
 
 
 export const registerUser = createAsyncThunk("user/registerUser", async (user, thunkAPI) => {
-
-    try {
-        let { data } = await customFetch.post('/auth/register', user)
-        return data
-
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data.msg)
-    }
-
+    return registerThunk('/auth/register', user, thunkAPI)
 })
 
 
 export const loginUser = createAsyncThunk("user/loginUser", async (user, thunkAPI) => {
-    try {
-        let { data } = await customFetch.post('/auth/login', user)
-        return data
-
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data.msg)
-    }
+    return loginThunk('/auth/login', user, thunkAPI)
 
 })
 
-export const updateUser = createAsyncThunk(
-    "user/update",
-    async (data, thunkAPI) => {
-        try {
-            let resp = await customFetch.patch("/auth/updateUser", data, {
-                headers: {
-                    authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-                }
-            })
-            return resp.data
-        } catch (error) {
-            console.log(error);
-            thunkAPI.rejectWithValue(error.response)
-        }
-    }
-)
+export const updateUser = createAsyncThunk("user/update", async (data, thunkAPI) => {
+    return updateUserThunk("/auth/updateUser", data, thunkAPI)
+})
 
 
 
@@ -65,10 +39,13 @@ let userSlice = createSlice({
         openSideBar: (state) => {
             state.isOpenSideBar = !state.isOpenSideBar
         },
-        logOutUser: (state) => {
+        logOutUser: (state, payload) => {
             // state.isOpenSideBar = false
             state.user = null
             removeUserLocalStorage()
+            if (payload) {
+                toast.success(payload)
+            }
         }
 
     },
@@ -78,9 +55,9 @@ let userSlice = createSlice({
             state.isLoading = true
         },
         [registerUser.fulfilled]: (state, { payload }) => {
-            addUserLocalStorage(payload)
+            addUserLocalStorage(payload.user)
             state.isLoading = false
-            state.user = payload
+            state.user = payload.user
             toast.success("register successfully")
         },
         [registerUser.rejected]: (state, { payload }) => {

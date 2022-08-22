@@ -42,7 +42,7 @@ const Profile = () => {
                 <h3>profile</h3>
                 <div className="form-center">
                     <FormRow type="text" name="name" value={userData.name} handleChange={handleChange} />
-                    <FormRow type="text" name="last name" value={userData.lastName} handleChange={handleChange} />
+                    <FormRow type="text" name="lastName" value={userData.lastName} handleChange={handleChange} />
                     <FormRow type="email" name="email" value={userData.email} handleChange={handleChange} />
                     <FormRow type="text" name="location" value={userData.location} handleChange={handleChange} />
                     <button type='submit' className='btn btn-block' disabled={isLoading}>{isLoading ? "loading ..." : "save changes"} </button>
