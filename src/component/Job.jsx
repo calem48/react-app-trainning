@@ -1,10 +1,11 @@
 import Wrapper from '../assets/wrappers/Job';
+import { Link } from "react-router-dom";
 import { JobInfo } from '.';
-import { deleteDjob } from '../features/Job/JobSlice';
+import { deleteDjob, editJob } from '../features/Job/JobSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import moment from 'moment';
-const Job = ({ _id, company, createdAt, createdBy, jobLocation, jobType, position, status, updatedAt, __v }) => {
+const Job = ({ _id, company, createdAt, createdBy, jobLocation, jobType, position, status, updatedAt }) => {
     let dispatch = useDispatch()
     return (
         <Wrapper>
@@ -24,7 +25,13 @@ const Job = ({ _id, company, createdAt, createdBy, jobLocation, jobType, positio
                 </div>
                 <footer>
                     <div className="actions">
-                        <a className="btn edit-btn" href="/add-job">Edit</a>
+                        <Link
+                            className="btn edit-btn"
+                            to="/add-job"
+                            onClick={() => dispatch(editJob({ editJobId: _id, position, company, jobLocation, status, jobType }))}
+                        >
+                            Edit
+                        </Link>
                         <button
                             type="button"
                             className="btn delete-btn"

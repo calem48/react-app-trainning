@@ -14,7 +14,8 @@ let initialState = {
     jobType: 'full-time',
     statusOptions: ['interview', 'declined', 'pending'],
     status: 'pending',
-    isEdit: false
+    isEdit: false,
+    editJobId: ""
 }
 
 
@@ -52,12 +53,27 @@ export let deleteDjob = createAsyncThunk('job/deleteJob', async (jobID, thunkAPI
     }
 })
 
+
+export let editeJob = createAsyncThunk('job/editeJob', async ({ jobID, job }, thunkAPI) => {
+    try {
+        let resp = await customFetch.patch(`/jobs/${jobID}`, job, {
+            headers: {
+                authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+            }
+        })
+        thunkAPI.dispatch(clearValue())
+        return resp.data
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+})
+
+
 let jobSlice = createSlice({
     name: "Job",
     initialState,
     reducers: {
         handleChange: (state, { payload }) => {
-            console.log(payload);
             state[payload.name] = payload.value
         },
         clearValue: () => {
@@ -65,6 +81,9 @@ let jobSlice = createSlice({
                 ...initialState, jobLocation: getUserLocalStorage()?.location || ""
             }
 
+        },
+        editJob: (state, { payload }) => {
+            return { ...state, isEdit: true, ...payload }
         }
     },
     extraReducers: {
@@ -84,8 +103,19 @@ let jobSlice = createSlice({
         },
         [deleteDjob.rejected]: (state, { payload }) => {
             toast.error(payload)
-        }
+        },
+        [editeJob.pending]: (state) => {
+            state.isLoading = true
+        },
+        [editeJob.fulfilled]: (state, { payload }) => {
+            state.isLoading = false
+            toast.success("edit successfully")
+        },
+        [editeJob.rejected]: (state, { payload }) => {
+            state.isLoading = false
+            toast.error(payload)
+        },
     }
 })
-export let { handleChange, clearValue } = jobSlice.actions
+export let { handleChange, clearValue, editJob } = jobSlice.actions
 export default jobSlice.reducer

@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 import { FormRow, FormRowSelect } from '../../component';
-import { handleChange, clearValue, addJob } from '../../features/Job/JobSlice'
+import { handleChange, clearValue, addJob, editeJob } from '../../features/Job/JobSlice'
 
 
 const AddJobs = () => {
-    let { jobTypeStatus, statusOptions, typeJob, status, isLoading, position, company, jobLocation, isEdit }
+    let { jobTypeStatus, statusOptions, typeJob, status, isLoading, position, company, jobLocation, isEdit, editJobId }
         = useSelector(store => store.job)
     let { location } = useSelector(store => store.user.user)
 
@@ -25,17 +25,28 @@ const AddJobs = () => {
             toast.error("fill the input")
             return
         }
+        if (isEdit) {
+            dispatch(
+                editeJob({
+                    jobID: editJobId,
+                    job: { position, company, jobLocation, typeJob, status }
+                }))
+            return
+        }
         dispatch(addJob({ position, company, jobLocation, status, typeJob }))
     }
 
     useEffect(() => {
-        dispatch(handleChange({ name: "jobLocation", value: location }))
+        if (!isEdit) {
+            dispatch(handleChange({ name: "jobLocation", value: location }))
+        }
     }, []);
 
     console.log("render");
     return (
         <Wrapper>
             <form className="form" onSubmit={handleSubmit}>
+                <h3> {isEdit ? 'edit job' : 'profile'} </h3>
                 <div className="form-center">
                     <FormRow type="text" name="position" handleChange={handleJob} value={position} />
                     <FormRow type="text" name="company" handleChange={handleJob} value={company} />
