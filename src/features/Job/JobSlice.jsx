@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 import { getUserLocalStorage } from "../../utils/localStorage";
+import { getAllJobs, hideLoading, showLoading } from "../AllJobs/AllJobsSlice";
 import { logOutUser } from "../user/userSlice";
 
 let initialState = {
@@ -35,6 +36,22 @@ export let addJob = createAsyncThunk('job/addJob', async (data, thunkAPI) => {
     }
 })
 
+export let deleteDjob = createAsyncThunk('job/deleteJob', async (jobID, thunkAPI) => {
+    thunkAPI.dispatch(showLoading())
+    try {
+        let resp = await customFetch.delete(`/jobs/${jobID}`, {
+            headers: {
+                authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+            }
+        })
+        thunkAPI.dispatch(getAllJobs())
+        return resp.data
+    } catch (error) {
+        thunkAPI.dispatch(hideLoading())
+        thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+})
+
 let jobSlice = createSlice({
     name: "Job",
     initialState,
@@ -62,6 +79,12 @@ let jobSlice = createSlice({
             state.isLoading = false
             toast.error(payload)
         },
+        [deleteDjob.fulfilled]: (state, { payload }) => {
+            toast.success(payload.msg)
+        },
+        [deleteDjob.rejected]: (state, { payload }) => {
+            toast.error(payload)
+        }
     }
 })
 export let { handleChange, clearValue } = jobSlice.actions

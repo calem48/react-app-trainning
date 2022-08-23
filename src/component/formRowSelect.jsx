@@ -12,6 +12,7 @@ const FormRowSelect = ({ name, value, handleChange, textLabale, list }) => {
                 className='form-select'
             >
                 {
+                    list &&
                     list.map(option => {
                         return <option key={option} value={option}> {option} </option>
                     })
