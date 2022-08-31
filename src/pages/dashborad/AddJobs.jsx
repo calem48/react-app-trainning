@@ -8,8 +8,9 @@ import { handleChange, clearValue, addJob, editeJob } from '../../features/Job/J
 
 
 const AddJobs = () => {
-    let { jobTypeStatus, statusOptions, typeJob, status, isLoading, position, company, jobLocation, isEdit, editJobId }
+    let { jobTypeStatus, statusOptions, jobType, status, isLoading, position, company, jobLocation, isEdit, editJobId }
         = useSelector(store => store.job)
+    useSelector(store => console.log(store.job))
     let { location } = useSelector(store => store.user.user)
 
     let dispatch = useDispatch()
@@ -28,12 +29,12 @@ const AddJobs = () => {
         if (isEdit) {
             dispatch(
                 editeJob({
-                    jobID: editJobId,
-                    job: { position, company, jobLocation, typeJob, status }
+                    jobId: editJobId,
+                    job: { position, company, jobLocation, jobType, status }
                 }))
             return
         }
-        dispatch(addJob({ position, company, jobLocation, status, typeJob }))
+        dispatch(addJob({ position, company, jobLocation, status, jobType }))
     }
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const AddJobs = () => {
                         value={jobLocation}
                     />
                     <FormRowSelect name="status" list={statusOptions} value={status} handleChange={handleJob} />
-                    <FormRowSelect name="typeJob" textLabale="type job" list={jobTypeStatus} value={typeJob}
+                    <FormRowSelect name="jobType" textLabale="type job" list={jobTypeStatus} value={jobType}
                         handleChange={handleJob}
                     />
 

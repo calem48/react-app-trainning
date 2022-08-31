@@ -12,7 +12,7 @@ const Job = ({ _id, company, createdAt, createdBy, jobLocation, jobType, positio
             <header>
                 <div className="main-icon"> {company.charAt(0)} </div>
                 <div className="info">
-                    <h5>{company}</h5>
+                    <h5>{position}</h5>
                     <p>{jobLocation}</p>
                 </div>
             </header>
@@ -28,7 +28,8 @@ const Job = ({ _id, company, createdAt, createdBy, jobLocation, jobType, positio
                         <Link
                             className="btn edit-btn"
                             to="/add-job"
-                            onClick={() => dispatch(editJob({ editJobId: _id, position, company, jobLocation, status, jobType }))}
+                            onClick={() =>
+                                dispatch(editJob({ editJobId: _id, position, company, jobLocation, status, jobType }))}
                         >
                             Edit
                         </Link>

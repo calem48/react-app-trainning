@@ -11,8 +11,19 @@ let initFilterStates = {
     sortDefaultValue: "all"
 }
 
-export let getAllJobs = createAsyncThunk('job/getAllJobs', async (_, thunkAPI) => {
-    console.log('hhhhhhhhhhhhhhhhi');
+
+let initialState = {
+    isLoading: false,
+    jobs: [],
+    jobsTotal: 0,
+    numOfPages: 1,
+    page: 1,
+    stats: {},
+    monthlyApplications: [],
+    ...initFilterStates
+}
+
+export let getAllJobs = createAsyncThunk('AllJob/getAllJobs', async (_, thunkAPI) => {
     try {
         let resp = await customFetch.get('/jobs', {
             headers: {
@@ -26,18 +37,20 @@ export let getAllJobs = createAsyncThunk('job/getAllJobs', async (_, thunkAPI) =
     }
 })
 
+export let getAllStats = createAsyncThunk('AllJob/getAllStats', async (_, thunkAPI) => {
+    try {
+        let resp = await customFetch.get("/jobs/stats", {
+            headers: {
+                authorization: `Bearer ${thunkAPI.getState().user.user.token}`
+            }
+        })
+        console.log(resp.data);
+        return resp.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data.msg)
+    }
+})
 
-
-let initialState = {
-    isLoading: false,
-    jobs: [],
-    jobsTotal: 0,
-    numOfPages: 1,
-    page: 1,
-    stats: {},
-    monthlyApplications: [],
-    ...initFilterStates
-}
 
 
 let allJobsSlice = createSlice({
@@ -63,7 +76,20 @@ let allJobsSlice = createSlice({
         [getAllJobs.rejected]: (state, { payload }) => {
             state.isLoading = false
             toast.error(payload)
+        },
+        [getAllStats.pending]: (state) => {
+            state.isLoading = true
+        },
+        [getAllStats.fulfilled]: (state, { payload }) => {
+            state.isLoading = false
+            state.stats = payload.defaultStats
+            state.monthlyApplications = payload.monthlyApplications
+        },
+        [getAllStats.rejected]: (state, { payload }) => {
+            state.isLoading = false
+            toast.error(payload)
         }
+
     }
 })
 
