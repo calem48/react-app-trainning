@@ -3,17 +3,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Job } from '.';
 import { getAllJobs } from '../features/AllJobs/AllJobsSlice';
 import { useEffect } from 'react';
+import JobBtnPagination from './jobBtnPagination';
 
 
 
 const JobContainer = () => {
-    let { jobs, isLoading } = useSelector(store => store.allJobs)
+    let { jobs, isLoading, jobsTotal, numOfPages, searchType, searchStatus, sortDefaultValue, search, page }
+        = useSelector(store => store.allJobs)
     let dispatch = useDispatch()
 
 
     useEffect(() => {
+
         dispatch(getAllJobs())
-    }, []);
+    }, [searchType, searchStatus, sortDefaultValue, search, page]);
+
+
+
 
     if (isLoading) {
 
@@ -32,10 +38,9 @@ const JobContainer = () => {
         )
     }
 
-
     return (
         <Wrapper>
-            <h5>{jobs.length} jobs found</h5>
+            <h5>{jobsTotal} jobs found</h5>
             <div className="jobs">
                 {
                     jobs.map((job) => {
@@ -43,6 +48,7 @@ const JobContainer = () => {
                     })
                 }
             </div>
+            {numOfPages > 1 && <JobBtnPagination />}
         </Wrapper>
     );
 }

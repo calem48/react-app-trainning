@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 import { addUserLocalStorage, getUserLocalStorage, removeUserLocalStorage } from '../../utils/localStorage'
-import { loginThunk, registerThunk, updateUserThunk } from './userThunk'
+import { clearStoreThunk, loginThunk, registerThunk, updateUserThunk } from './userThunk'
 
 let initialState = {
     isLoading: false,
@@ -26,6 +26,9 @@ export const updateUser = createAsyncThunk("user/update", async (data, thunkAPI)
 })
 
 
+export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk)
+
+
 
 
 
@@ -39,7 +42,7 @@ let userSlice = createSlice({
         openSideBar: (state) => {
             state.isOpenSideBar = !state.isOpenSideBar
         },
-        logOutUser: (state, payload) => {
+        logOutUser: (state, { payload }) => {
             // state.isOpenSideBar = false
             state.user = null
             removeUserLocalStorage()
@@ -92,6 +95,9 @@ let userSlice = createSlice({
         [updateUser.rejected]: (state, { payload }) => {
             state.isLoading = false;
             toast.error(payload);
+        },
+        [clearStore.rejected]: () => {
+            toast.error("there is error");
         },
     }
 })

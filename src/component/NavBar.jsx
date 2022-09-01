@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Warpper from "../assets/wrappers/Navbar";
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Logo from './Logo';
-import { openSideBar, logOutUser } from '../features/user/userSlice';
+import { openSideBar, clearStore } from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Navbar = () => {
@@ -26,7 +26,7 @@ const Navbar = () => {
                         <FaUserCircle />{user?.name}<FaCaretDown />
                     </button>
                     <div className={show ? "dropdown show-dropdown" : "dropdown"}>
-                        <button onClick={() => dispatch(logOutUser("logout successfully"))} type="button" className="dropdown-btn">logout</button>
+                        <button onClick={() => dispatch(clearStore("logout successfully"))} type="button" className="dropdown-btn">logout</button>
                     </div>
                 </div>
             </div>
